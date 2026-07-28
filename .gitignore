@@ -1,4 +1,8 @@
-.build/
-.build-app/
-dist/
+**/.build/
+**/.build-app/
+**/dist/
+**/bin/
+**/obj/
+.vs/
+.vscode/
 .DS_Store

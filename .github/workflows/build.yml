@@ -1,0 +1,81 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  macos:
+    name: macOS
+    runs-on: macos-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build macOS app
+        run: |
+          chmod +x macos/scripts/build-app.sh
+          macos/scripts/build-app.sh
+
+      - name: Run macOS self-tests
+        run: macos/dist/myCodex\ Meter.app/Contents/MacOS/CodexUsageMenu --self-test
+
+      - name: Package macOS artifact
+        run: |
+          ditto -c -k --sequesterRsrc --keepParent \
+            "macos/dist/myCodex Meter.app" \
+            "myCodex-Meter-macOS.zip"
+
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: myCodex-Meter-macOS
+          path: myCodex-Meter-macOS.zip
+          if-no-files-found: error
+
+  windows:
+    name: Windows ${{ matrix.rid }}
+    runs-on: windows-latest
+    timeout-minutes: 25
+
+    strategy:
+      fail-fast: false
+      matrix:
+        rid:
+          - win-x64
+          - win-arm64
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Run Windows core self-tests
+        run: dotnet run --project windows/tests/MyCodexMeter.Core.SelfTests -c Release
+
+      - name: Publish Windows app
+        shell: pwsh
+        run: windows/scripts/build.ps1 ${{ matrix.rid }}
+
+      - name: Package Windows artifact
+        shell: pwsh
+        run: Compress-Archive -Path "dist/windows-${{ matrix.rid }}/*" -DestinationPath "myCodex-Meter-${{ matrix.rid }}.zip"
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: myCodex-Meter-${{ matrix.rid }}
+          path: myCodex-Meter-${{ matrix.rid }}.zip
+          if-no-files-found: error
