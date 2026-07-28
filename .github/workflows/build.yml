@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Build macOS app
         run: |
@@ -35,7 +35,7 @@ jobs:
             "myCodex-Meter-macOS.zip"
 
       - name: Upload macOS artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: myCodex-Meter-macOS
           path: myCodex-Meter-macOS.zip
@@ -55,10 +55,10 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: 10.0.x
 
@@ -74,7 +74,7 @@ jobs:
         run: Compress-Archive -Path "dist/windows-${{ matrix.rid }}/*" -DestinationPath "myCodex-Meter-${{ matrix.rid }}.zip"
 
       - name: Upload Windows artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: myCodex-Meter-${{ matrix.rid }}
           path: myCodex-Meter-${{ matrix.rid }}.zip
