@@ -8,8 +8,10 @@
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Resources\mycodex-meter.ico</ApplicationIcon>
     <AssemblyName>myCodex Meter</AssemblyName>
     <RootNamespace>MyCodexMeter.Windows</RootNamespace>
+    <Version>1.1.0</Version>
     <PublishTrimmed>false</PublishTrimmed>
   </PropertyGroup>
 

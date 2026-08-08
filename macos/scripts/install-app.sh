@@ -8,6 +8,7 @@ app_name="myCodex Meter"
 source_bundle="${project_dir}/dist/${app_name}.app"
 destination_bundle="/Applications/${app_name}.app"
 destination_binary="${destination_bundle}/Contents/MacOS/CodexUsageMenu"
+installed_build_cache="${project_dir}/.build-app/installed-bundles/$(/bin/date +%Y%m%d-%H%M%S)-$$"
 
 "${script_dir}/build-app.sh" release
 
@@ -28,6 +29,8 @@ done
 /usr/bin/codesign --verify --deep --strict "${destination_bundle}"
 
 "${destination_binary}" --launch-at-login enable
+/bin/mkdir -p "${installed_build_cache:h}"
+/bin/mv "${source_bundle}" "${installed_build_cache}"
 /usr/bin/open "${destination_bundle}"
 
 echo "Installed: ${destination_bundle}"

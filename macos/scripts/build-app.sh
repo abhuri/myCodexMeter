@@ -35,6 +35,7 @@ fi
 /bin/mkdir -p "${contents_path}/MacOS" "${contents_path}/Resources"
 /bin/cp "${binary_path}" "${contents_path}/MacOS/CodexUsageMenu"
 /bin/cp "${project_dir}/Resources/Info.plist" "${contents_path}/Info.plist"
+/bin/cp "${project_dir}/Resources/AppIcon.icns" "${contents_path}/Resources/AppIcon.icns"
 
 /usr/bin/codesign --force --deep --sign - "${bundle_path}"
 

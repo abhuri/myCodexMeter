@@ -31,7 +31,28 @@ internal static class DynamicTrayIconRenderer
             _ => Color.FromArgb(230, 220, 53, 69),
         };
 
-        using var logoBrush = new SolidBrush(color);
+        using var gaugePen = new Pen(color, 3.2f)
+        {
+            StartCap = LineCap.Round,
+            EndCap = LineCap.Round,
+        };
+        graphics.DrawArc(gaugePen, 2.8f, 2.8f, 26.4f, 26.4f, 170, 200);
+
+        var clampedPercent = Math.Clamp(remainingPercent ?? 50, 0, 100);
+        var needleAngle = (170 + clampedPercent * 2) * Math.PI / 180;
+        var needleEnd = new PointF(
+            16 + (float)Math.Cos(needleAngle) * 8.4f,
+            16 + (float)Math.Sin(needleAngle) * 8.4f);
+        using var needlePen = new Pen(Color.White, 1.6f)
+        {
+            StartCap = LineCap.Round,
+            EndCap = LineCap.Round,
+        };
+        graphics.DrawLine(needlePen, new PointF(16, 16), needleEnd);
+        using var hubBrush = new SolidBrush(Color.White);
+        graphics.FillEllipse(hubBrush, 14.4f, 14.4f, 3.2f, 3.2f);
+
+        using var logoBrush = new SolidBrush(Color.FromArgb(96, color));
         DrawCodexMark(graphics, logoBrush);
 
         var label = remainingPercent is null

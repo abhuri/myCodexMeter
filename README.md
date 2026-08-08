@@ -1,5 +1,7 @@
 # myCodex Meter
 
+<img src="assets/mycodex-meter-master.png" alt="myCodex Meter icon" width="240">
+
 แอปขนาดเล็กสำหรับดู Codex Usage จากแถบสถานะของระบบ โดยรองรับทั้ง macOS และ Windows ใน Repository เดียว
 
 ## Platforms
