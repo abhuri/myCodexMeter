@@ -27,6 +27,23 @@ chmod +x scripts/build-app.sh
 dist/myCodex Meter.app
 ```
 
+## ติดตั้งบนเครื่อง
+
+สคริปต์ติดตั้งจะ Build ตัวล่าสุด คัดลอกแอปไปที่ `/Applications/myCodex Meter.app`
+เปิดใช้งาน Launch at Login และเปิดแอปจากตำแหน่งหลัก:
+
+```bash
+./scripts/install-app.sh
+```
+
+ตรวจสอบหรือเปลี่ยน Launch at Login จาก Terminal ได้ด้วย:
+
+```bash
+"/Applications/myCodex Meter.app/Contents/MacOS/CodexUsageMenu" --launch-at-login status
+"/Applications/myCodex Meter.app/Contents/MacOS/CodexUsageMenu" --launch-at-login enable
+"/Applications/myCodex Meter.app/Contents/MacOS/CodexUsageMenu" --launch-at-login disable
+```
+
 ## ตรวจสอบ
 
 ```bash

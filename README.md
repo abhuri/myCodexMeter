@@ -48,6 +48,13 @@ cd macos
 
 ผลลัพธ์อยู่ที่ `macos/dist/myCodex Meter.app`
 
+ติดตั้งตัวล่าสุดไว้ใน `/Applications` พร้อมเปิด Launch at Login:
+
+```bash
+cd macos
+./scripts/install-app.sh
+```
+
 ## Build Windows
 
 ```powershell
